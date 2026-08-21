@@ -28,7 +28,7 @@ class ExpressionTree:
 
     @classmethod
     def _create_node(cls, value):
-        node = cls.__new__(cls)
+        node = object.__new__(cls)
         node.value = value
         return node
 
