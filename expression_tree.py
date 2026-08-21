@@ -1,6 +1,6 @@
 class ExpressionTree:
     @staticmethod
-    def is_higher(operator1, operator2):
+    def _is_higher(operator1, operator2):
         priorities = {"+":1, "-":1, "*":2, "/":2, "(":3, ")":0 }
 
         return priorities[operator1] > priorities[operator2]
@@ -30,8 +30,6 @@ class ExpressionTree:
     def _create_node(cls, value):
         node = cls.__new__(cls)
         node.value = value
-        node.left = None
-        node.right = None
         return node
 
     @classmethod
@@ -52,7 +50,7 @@ class ExpressionTree:
                 operands.append(cls._create_node(tokens[i]))
                 i+=1
             else:
-                if len(operators) == 0 or operators[-1] == '(' or cls.is_higher(tokens[i], operators[-1]):
+                if len(operators) == 0 or operators[-1] == '(' or cls._is_higher(tokens[i], operators[-1]):
                     operators.append(tokens[i])
                     i +=1
                 elif tokens[i] == ')':
