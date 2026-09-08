@@ -92,6 +92,7 @@ class Node:
 
 
 text = "8 5 9 1 NULL 2 4"
+text = "5 1 4 NULL NULL 3 6"
 
 root = Node.fromText(text)
 root.bfs()

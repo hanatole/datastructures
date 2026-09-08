@@ -1,7 +1,6 @@
 package main
 
 import (
-	"container/list"
 	"fmt"
 	"strconv"
 	"strings"
@@ -30,23 +29,18 @@ func fromText(text string) *Node {
 	}
 
 	root := NewNode(value)
+	queue := []*Node{root}
+	head, i := 0, 1
 
-	queue := list.New()
-	queue.PushBack(root)
-
-	i := 1
-
-	for queue.Len() > 0 && i < len(data) {
-		element := queue.Front()
-		queue.Remove(element)
-
-		node := element.Value.(*Node)
+	for head < len(queue) && i < len(data) {
+		node := queue[head]
+		head++
 
 		if i < len(data) && data[i] != "NULL" {
 			value, err := strconv.Atoi(data[i])
 			if err == nil {
 				node.left = NewNode(value)
-				queue.PushBack(node.left)
+				queue = append(queue, node.left)
 			}
 		}
 		i++
@@ -55,7 +49,7 @@ func fromText(text string) *Node {
 			value, err := strconv.Atoi(data[i])
 			if err == nil {
 				node.right = NewNode(value)
-				queue.PushBack(node.right)
+				queue = append(queue, node.right)
 			}
 		}
 		i++
@@ -73,22 +67,20 @@ func (n *Node) bfs() {
 		return
 	}
 
-	queue := list.New()
-	queue.PushBack(n)
+	queue := []*Node{n}
+	head := 0
 
-	for queue.Len() > 0 {
-		element := queue.Front()
-		queue.Remove(element)
-
-		node := element.Value.(*Node)
+	for head < len(queue) {
+		node := queue[head]
+		head++
 		node.process()
 
 		if node.left != nil {
-			queue.PushBack(node.left)
+			queue = append(queue, node.left)
 		}
 
 		if node.right != nil {
-			queue.PushBack(node.right)
+			queue = append(queue, node.right)
 		}
 	}
 
