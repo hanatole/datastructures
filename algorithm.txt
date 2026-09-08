@@ -1,0 +1,104 @@
+/*
+
+PREORDRE(arbre)
+    si arbre ≠ NULL
+        visiter(racine)
+        PREORDRE(gauche)
+        PREORDRE(droite)
+
+INORDRE(arbre)
+    si arbre ≠ NULL
+		INORDRE(gauche)
+        visiter(racine)
+        INORDRE(droite)
+
+
+POSTORDRE(arbre)
+    si arbre ≠ NULL
+		POSTORDRE(gauche)
+        POSTORDRE(droite)
+        visiter(racine)
+
+
+BFS(arbre)
+
+	Queue file
+
+	if arbre != NULL:
+	  file.add(arbre)
+
+	while ! file.empty():
+		node = file.poll()
+		visiter(node)
+
+		if node.gauche != NULL:
+			file.add(node.gauche)
+		if node.droite != NULL:
+			file.add(node.droite)
+
+
+
+
+     1
+   2   3
+  7      5
+		6
+
+1 2 3 7 NULL NULL 5 6 NULL
+
+
+
+
+
+Node fromText(String text){
+	
+
+tab = ["1", "2", "3", "7", "NULL", "NULL", "5", NULL, NULL, "6", "NULL"]
+
+nodes =[Node(1), Node(2), Node(3), Node(7), null, null, Node(5), null, null, Node(6), null]
+
+
+for (int i=0; i < tab.length; ++i){
+	nodes[i] = tab[i].equals("NULL") ? null : new Node(Integer.parseInt(tab[i]));
+}
+
+int offset =0
+
+for (int i =0; i< nodes.length; ++i){
+	if(nodes[i] !=null){
+		
+		if(2*i+1 - offset < nodes.length)
+			nodes[i].left = nodes[2*i+1-offset]
+		
+		if(2*i+2 -offset< nodes.length)
+			nodes[i].right = nodes[2*i+2-offset]
+	}else{
+		offset +=2
+	}
+}
+
+return nodes[0]
+}
+
+
+class Node {
+	int data;
+	Node left;
+	Node right;
+
+	public Node(int data) {
+		this.data = data;
+		left = null;
+		right = null;
+	}
+
+	public Node(int data, Node left, Node right){
+	    this.data = data;
+		this.left = left;
+		this.right = right;
+	}
+}
+
+
+*/
+
