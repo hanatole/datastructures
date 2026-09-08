@@ -1,7 +1,7 @@
 class ExpressionTree:
     @staticmethod
     def _is_higher(operator1, operator2):
-        priorities = {"+":1, "-":1, "*":2, "/":2, "(":3, ")":0 }
+        priorities = {"+": 1, "-": 1, "*": 2, "/": 2, "(": 3, ")": 0}
 
         return priorities[operator1] > priorities[operator2]
 
@@ -25,7 +25,6 @@ class ExpressionTree:
 
         return tokens
 
-
     @classmethod
     def _create_node(cls, value):
         node = object.__new__(cls)
@@ -48,13 +47,17 @@ class ExpressionTree:
         while i < l:
             if isinstance(tokens[i], int):
                 operands.append(cls._create_node(tokens[i]))
-                i+=1
+                i += 1
             else:
-                if len(operators) == 0 or operators[-1] == '(' or cls._is_higher(tokens[i], operators[-1]):
+                if (
+                    len(operators) == 0
+                    or operators[-1] == "("
+                    or cls._is_higher(tokens[i], operators[-1])
+                ):
                     operators.append(tokens[i])
-                    i +=1
-                elif tokens[i] == ')':
-                    while operators[-1] != '(':
+                    i += 1
+                elif tokens[i] == ")":
+                    while operators[-1] != "(":
                         add_node()
                     operators.pop()
                     i += 1
@@ -71,19 +74,20 @@ class ExpressionTree:
             return self.value
         left_val = self.left.evaluate()
         right_val = self.right.evaluate()
-        if self.value == '+':
+        if self.value == "+":
             return left_val + right_val
-        elif self.value == '-':
+        elif self.value == "-":
             return left_val - right_val
-        elif self.value == '*':
+        elif self.value == "*":
             return left_val * right_val
-        elif self.value == '/':
+        elif self.value == "/":
             return left_val / right_val
 
 
 def main():
     tree = ExpressionTree.from_text("31 + 2 * (8 - 2 + 5) - 64 / 2")
     print(tree.evaluate())
+
 
 if __name__ == "__main__":
     main()
